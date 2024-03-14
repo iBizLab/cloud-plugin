@@ -1,0 +1,6 @@
+.idea
+*.iml
+.project
+.settings/org.eclipse.core.resources.prefs
+*.prefs
+ibiz-ebsx-gateway/.classpath

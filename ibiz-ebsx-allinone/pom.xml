@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-plugin</artifactId>
+        <groupId>cn.ibizlab.plugin</groupId>
+        <version>${ibiz.cloud.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ibiz-ebsx-allinone</artifactId>
+
+	 <properties>
+        <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <docker.image.prefix>image.ibizlab.cn/ebsx</docker.image.prefix>
+         <log4j2.version>2.17.1</log4j2.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+        <!-- 		<dependency> -->
+        <!-- 		    <groupId>com.alibaba.cloud</groupId> -->
+        <!-- 		    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId> -->
+        <!-- 		    <version>2021.1</version> -->
+        <!-- 		</dependency> -->
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
+        <!-- 		<dependency> -->
+        <!-- 		    <groupId>com.alibaba.cloud</groupId> -->
+        <!-- 		    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId> -->
+        <!-- 		    <version>2021.1</version> -->
+        <!-- 		</dependency> -->
+	
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-mybatisplus-spring-boot-starter</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-mongodb</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-spring-webflux</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-druid</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-kafka</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-zookeeper</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-quartz</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-poi</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-redis</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-jasperreports</artifactId>
+            <version>${ibiz.cloud.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                	<groupId>org.apache.lucene</groupId>
+                	<artifactId>lucene-core</artifactId>
+                </exclusion>
+                <exclusion>
+                	<groupId>org.apache.lucene</groupId>
+                	<artifactId>lucene-analyzers-common</artifactId>
+                </exclusion>
+                <exclusion>
+                	<groupId>org.apache.lucene</groupId>
+                	<artifactId>lucene-queryparser</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-simple</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-uaa-spring-boot-starter</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-oss-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-saas-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+		<dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-conf-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-workflow-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-workflow-flowable</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-saas-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+		<dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-cloud</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-devops-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-devops-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-log-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-task-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-task-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-notify-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-notify-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-open-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-open-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-open-dingtalk</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-open-wxwork</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+  		<dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-ou-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-zookeeper</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-liquibase</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-report-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+ 
+         <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-report-grafana</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-rabbitmq</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-activemq</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-solr</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-elasticsearch</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-portal-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-portal-ebsx</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-rabbitmq</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-eai</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibizlab-plugin-groovy</artifactId>
+            <version>${ibiz.cloud.version}</version>
+       </dependency>
+       
+       <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-ai-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+       </dependency>
+       
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-ai-openai-gpt3</artifactId>
+           <version>${ibiz.cloud.version}</version>
+       </dependency>
+       
+       <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-ai-langchain-chatchat</artifactId>
+            <version>${ibiz.cloud.version}</version>
+       </dependency>
+        	
+       <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-ai-baichuanai</artifactId>
+            <version>${ibiz.cloud.version}</version>
+       </dependency>
+       
+       <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-devops-dynamodelapi</artifactId>
+           <version>${ibiz.cloud.version}</version>
+       </dependency>
+        
+		<dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-dataflow-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-dataflow-spark</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-oss-poi</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-saas-extension</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-extension</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-plugin-opml</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-kb-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>allinone</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${basedir}/src/main/resources</directory>
+                        <includes>
+                            <include>**/**</include>
+                        </includes>
+                    </resource>
+                </resources>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <finalName>ibiz-ebsx-allinone</finalName>
+                            <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                            <mainClass>net.ibizsys.ebsx.allinone.boot.EBSXAllInOneApplication</mainClass>
+                            <outputDirectory>./</outputDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.4.13</version>
+                        <configuration>
+                        <serverId>ibiz-harbor</serverId>
+                        <imageName>${docker.image.prefix}/${project.artifactId}:${ibiz.cloud.version}</imageName>
+                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>./</directory>
+                                <include>ibiz-ebsx-allinone.jar</include>
+                            </resource>
+                        </resources>
+                        </configuration>
+                    </plugin>					
+				</plugins>	
+            </build>
+        </profile>
+    </profiles>
+
+</project>

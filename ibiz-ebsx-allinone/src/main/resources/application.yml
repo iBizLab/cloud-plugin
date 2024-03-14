@@ -1,0 +1,75 @@
+server:
+  port: 20000
+
+ibiz:
+  servicehub:
+    id: allinone
+  tenant: true
+
+#生产环境需要关闭
+springfox:
+  documentation:
+    enabled: true
+
+logging:
+  level: 
+    net.ibizsys.central.cloud: debug
+    net.ibizsys.central: debug
+    net.ibizsys.runtime: debug
+
+    
+spring:
+  application:
+    name: ibiz-ebsx-allinone
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.ibizcloud.cn:8848
+        group: ibiz_config_group
+      config:
+        server-addr: nacos.ibizcloud.cn:8848
+        group: ibiz_config_group
+        file-extension: yaml
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 104857600
+      max-request-size: 104857600
+  liquibase:
+    enabled: false
+  datasource:
+    username: root
+    password: '123456'
+    url: jdbc:h2:mem:master
+    driver-class-name: org.h2.Driver
+    isSyncDBSchema: false
+    defaultSchema: ibizEbsxAllinone
+    dynamic:
+      druid: #以下是全局默认值，可以全局更改
+        filters: stat,wall,log4j2
+        #配置初始化大小/最小/最大
+        initial-size: 1
+        min-idle: 1
+        max-active: 20
+        #获取连接等待超时时间
+        max-wait: 60000
+        #间隔多久进行一次检测，检测需要关闭的空闲连接
+        time-between-eviction-runs-millis: 60000
+        #一个连接在池中最小生存的时间
+        min-evictable-idle-time-millis: 300000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+      datasource:
+        master:
+          username: ${spring.datasource.username}
+          password: ${spring.datasource.password}
+          url: ${spring.datasource.url}
+          driver-class-name: ${spring.datasource.driver-class-name}
+      
+       
+       

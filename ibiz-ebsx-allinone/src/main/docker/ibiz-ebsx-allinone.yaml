@@ -1,0 +1,38 @@
+version: "3.2"
+services:
+  ibiz-ebsx-allinone:
+    image: image.ibizlab.cn/ebsx/ibiz-ebsx-allinone:8.1.0.458
+    environment:
+      - SPRING_CLOUD_NACOS_DISCOVERY_IP=172.16.240.140
+      - SERVER_PORT=20000
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER-ADDR=172.16.240.140:8848
+    ports:
+      - "20000:20000"
+    networks:
+      - agent_network
+    deploy:
+      resources:
+           limits:
+               memory: 4096M
+           reservations:
+               memory: 512M    
+      mode: replicated
+      replicas: 1
+    volumes:
+      - "ebsx-nfs:/app/file"
+    extra_hosts:
+      - "nacos.ibizcloud.cn:172.16.240.140"    
+      - "zk.ibizcloud.cn:172.16.140.101"
+
+volumes:
+  ebsx-nfs:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=172.16.240.140,rw"
+      device: ":/data/nfs"
+
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true

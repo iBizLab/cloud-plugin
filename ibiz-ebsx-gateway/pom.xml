@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>cloud-plugin</artifactId>
+        <groupId>cn.ibizlab.plugin</groupId>
+        <version>${ibiz.cloud.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ibiz-ebsx-gateway</artifactId>
+    
+   <properties>
+		<maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-cloud.version>2020.0.1</spring-cloud.version>
+        <docker.image.prefix>image.ibizlab.cn/ebsx</docker.image.prefix>
+        <log4j2.version>2.17.1</log4j2.version>
+	</properties> 
+	 
+    <dependencies>
+       <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+		
+			
+		<dependency>
+            <groupId>cn.ibizlab.plugin</groupId>
+            <artifactId>ibiz-cloud-gateway-core</artifactId>
+            <version>${ibiz.cloud.version}</version>
+        </dependency>
+		
+
+  </dependencies>
+  
+  <dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>gateway</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${basedir}/src/main/resources</directory>
+                        <includes>
+                            <include>**/**</include>
+                        </includes>
+                    </resource>
+                </resources>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <finalName>ibiz-ebsx-gateway</finalName>
+                            <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                            <mainClass>net.ibizsys.ebsx.gateway.boot.EBSXGatewayApplication</mainClass>
+                            <outputDirectory>./</outputDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.4.13</version>
+                        <configuration>
+                        <serverId>ibiz-harbor</serverId>
+                        <imageName>${docker.image.prefix}/${project.artifactId}:${ibiz.cloud.version}</imageName>
+                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>./</directory>
+                                <include>ibiz-ebsx-gateway.jar</include>
+                            </resource>
+                        </resources>
+                        </configuration>
+                    </plugin>					
+				</plugins>	
+            </build>
+        </profile>
+    </profiles>
+
+</project>

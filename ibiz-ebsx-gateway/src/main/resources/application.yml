@@ -1,0 +1,28 @@
+server:
+  port: 20086
+
+ibiz:
+  appgateway:
+    id: default
+
+logging:
+  level: 
+    net.ibizsys.central.cloud: debug
+    
+spring:
+  application:
+    name: ibiz-ebsx-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.ibizcloud.cn:8848
+        group: ibiz_config_group
+      config:
+        server-addr: nacos.ibizcloud.cn:8848
+        group: ibiz_config_group
+        file-extension: yaml
+    gateway:
+      routes:
+      
+       
+       
